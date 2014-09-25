@@ -20,14 +20,15 @@
     },
 	"require": {
 		"php": ">=5.4.0",
-		"instaphp/instaphp": "2.0.10"
+		"instaphp/instaphp": "2.0.10",
+		"idealistsoft/framework-social": "~1.0"
 	},
 	"require-dev": {
 		"satooshi/php-coveralls": "dev-master",
 		"idealistsoft/framework-bootstrap": "dev-master",
 		"idealistsoft/framework-auth": "dev-master",
-		"idealistsoft/framework-social": "~1.0",
-		"robmorgan/phinx": "*"
+		"robmorgan/phinx": "*",
+		"mockery/mockery": "0.9.1"
 	},
 	"minimum-stability": "dev"
 }
