@@ -192,9 +192,8 @@ class Controller
             $res->redirect('/profile');
     }
 
-    public function cron($command)
+    function refreshProfiles()
     {
-        if ($command == 'refresh-profiles')
-            return InstagramProfile::refreshProfiles();
+        return InstagramProfile::refreshProfiles();
     }
 }
