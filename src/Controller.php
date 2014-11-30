@@ -4,7 +4,6 @@ namespace app\instagram;
 
 use infuse\View;
 use Instaphp\Instaphp;
-
 use app\users\models\User;
 use app\instagram\models\InstagramProfile;
 
@@ -17,8 +16,8 @@ class Controller
         'routes' => [
             'get /instagram/connect' => 'connect',
             'get /instagram/callback' => 'callback',
-            'post /instagram/disconnect' => 'disconnect'
-        ]
+            'post /instagram/disconnect' => 'disconnect',
+        ],
     ];
 
     public static $scaffoldAdmin;
@@ -33,9 +32,10 @@ class Controller
     public function connect($req, $res)
     {
         // generate forceLogin redirect_uri
-        if ($req->query('forceLogin'))
+        if ($req->query('forceLogin')) {
             $this->app['config']->set('instagram.redirect_uri',
-                $this->app['config']->get('instagram.redirect_uri') . '?forceLogin=t');
+                $this->app['config']->get('instagram.redirect_uri').'?forceLogin=t');
+        }
 
         $res->redirect($this->app['instagram']->getOauthUrl());
     }
@@ -44,25 +44,29 @@ class Controller
     {
         $currentUser = $this->app[ 'user' ];
 
-        if ($currentUser->isLoggedIn() || $currentUser->instagramConnected())
+        if ($currentUser->isLoggedIn() || $currentUser->instagramConnected()) {
             $currentUser->set('instagram_id', null);
+        }
 
         $redir = '/profile';
-        if ($req->query('r'))
+        if ($req->query('r')) {
             $redir = $req->query('r');
+        }
 
         $res->redirect($redir);
     }
 
     public function callback($req, $res)
     {
-        if ($req->query('error_reason'))
+        if ($req->query('error_reason')) {
             return $res->redirect('/');
+        }
 
         // generate forceLogin redirect_uri
-        if ($req->query('forceLogin'))
+        if ($req->query('forceLogin')) {
             $this->app['config']->set('instagram.redirect_uri',
-                $this->app['config']->get('instagram.redirect_uri') . '?forceLogin=t');
+                $this->app['config']->get('instagram.redirect_uri').'?forceLogin=t');
+        }
 
         $instagram = $this->app['instagram'];
 
@@ -73,16 +77,16 @@ class Controller
             if ($instagram->Users->Authorize($req->query('code'))) {
                 $authenticatedUser = $instagram->Users->getCurrentUser();
             }
-        } catch ( \Exception $e ) {
-            $this->app[ 'logger' ]->error( $e );
+        } catch (\Exception $e) {
+            $this->app[ 'logger' ]->error($e);
         }
 
         if (!$authenticatedUser) {
-            $this->app['errors']->push( [
+            $this->app['errors']->push([
                 'context' => 'user.login',
                 'error' => 'invalid_token',
-                'message' => 'Instagram: Login error. Please try again.'
-            ] );
+                'message' => 'Instagram: Login error. Please try again.',
+            ]);
 
             $usersController = new \app\users\Controller($this->app);
 
@@ -108,12 +112,12 @@ class Controller
         // generate parameters to update profile
         $profileUpdateArray = [
             'id' => $iid,
-            'access_token' => $instagram->getAccessToken() ];
+            'access_token' => $instagram->getAccessToken(), ];
 
         // instagram id matches existing user?
         $user = User::findOne([
             'where' => [
-                'instagram_id' => $iid ]]);
+                'instagram_id' => $iid, ], ]);
 
         if ($user) {
             // check if we are dealing with a temporary user
@@ -135,9 +139,9 @@ class Controller
                 $profile = new InstagramProfile($iid);
 
                 // create or update the profile
-                if($profile->exists())
+                if ($profile->exists()) {
                     $profile->set($profileUpdateArray);
-                else {
+                } else {
                     $profile = new InstagramProfile();
                     $profile->create($profileUpdateArray);
                 }
@@ -165,9 +169,9 @@ class Controller
         $profile = new InstagramProfile($iid);
 
         // create or update the profile
-        if ($profile->exists())
+        if ($profile->exists()) {
             $profile->set($profileUpdateArray);
-        else {
+        } else {
             // create profile
             $profile = new InstagramProfile();
             $profile->create($profileUpdateArray);
@@ -177,22 +181,24 @@ class Controller
         $profile->refreshProfile($user_profile);
 
         // get outta here
-        if ($currentUser->isLoggedIn())
+        if ($currentUser->isLoggedIn()) {
             $this->finalRedirect($req, $res);
-        else
+        } else {
             $res->redirect('/signup/finish');
+        }
     }
 
     private function finalRedirect($req, $res)
     {
-        if ( $redirect = $req->cookies('redirect')) {
+        if ($redirect = $req->cookies('redirect')) {
             $req->setCookie('redirect', '', time() - 86400, '/');
             $res->redirect($redirect);
-        } else
+        } else {
             $res->redirect('/profile');
+        }
     }
 
-    function refreshProfiles()
+    public function refreshProfiles()
     {
         return InstagramProfile::refreshProfiles();
     }
