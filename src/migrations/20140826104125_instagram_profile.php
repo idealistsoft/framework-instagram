@@ -22,8 +22,8 @@ class InstagramProfile extends AbstractMigration
               ->addColumn('follows_count', 'integer', [ 'null' => true, 'default' => null ])
               ->addColumn('media_count', 'integer', [ 'null' => true, 'default' => null ])
               ->addColumn('last_refreshed', 'integer')
-              ->addColumn('created_at', 'integer')
-              ->addColumn('updated_at', 'integer', [ 'null' => true, 'default' => null ])
+              ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
+              ->addColumn('updated_at', 'timestamp', ['null' => true, 'default' => null, 'update' => 'CURRENT_TIMESTAMP'])
               ->create();
         }
     }
