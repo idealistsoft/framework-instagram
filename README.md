@@ -1,10 +1,13 @@
-framework-instagram [![Build Status](https://travis-ci.org/idealistsoft/framework-instagram.png?branch=master)](https://travis-ci.org/idealistsoft/framework-instagram)
+instagram
 ====================
 
-[![Coverage Status](https://coveralls.io/repos/idealistsoft/framework-instagram/badge.png)](https://coveralls.io/r/idealistsoft/framework-instagram) [![Latest Stable Version](https://poser.pugx.org/idealistsoft/framework-instagram/v/stable.png)](https://packagist.org/packages/idealistsoft/framework-instagram)
-[![Total Downloads](https://poser.pugx.org/idealistsoft/framework-instagram/downloads.png)](https://packagist.org/packages/idealistsoft/framework-instagram)
+[![Build Status](https://travis-ci.org/infusephp/instagram.png?branch=master)](https://travis-ci.org/infusephp/instagram)
+[![Coverage Status](https://coveralls.io/repos/infusephp/instagram/badge.png)](https://coveralls.io/r/infusephp/instagram)
+[![Latest Stable Version](https://poser.pugx.org/infuse/instagram/v/stable.png)](https://packagist.org/packages/infuse/instagram)
+[![Total Downloads](https://poser.pugx.org/infuse/instagram/downloads.png)](https://packagist.org/packages/infuse/instagram)
+[![HHVM Status](http://hhvm.h4cc.de/badge/infuse/instagram.svg)](http://hhvm.h4cc.de/package/infuse/instagram)
 
-instagram integration for Idealist Framework
+instagram integration for Infuse Framework
 
 ## Installation
 
