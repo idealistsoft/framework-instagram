@@ -13,17 +13,17 @@ class Controller
 
     public static $properties = [
         'models' => [ 'InstagramProfile' ],
-        'routes' => [
-            'get /instagram/connect' => 'connect',
-            'get /instagram/callback' => 'callback',
-            'post /instagram/disconnect' => 'disconnect',
-        ],
     ];
 
     public static $scaffoldAdmin;
 
     public function middleware($req, $res)
     {
+        // add routes
+        $this->app->get('/instagram/connect', 'connect')
+                  ->get('/instagram/callback', 'callback')
+                  ->post('/instagram/disconnect', 'disconnect');
+
         $this->app['instagram'] = function ($c) {
             return new Instaphp($c['config']->get('instagram'));
         };
@@ -132,7 +132,7 @@ class Controller
                         return new View('switchingAccounts/instagram.tpl', [
                             'title' => 'Switch accounts?',
                             'otherUser' => $user,
-                            'otherProfile' => $user->instagramProfile() ]);
+                            'otherProfile' => $user->instagramProfile(), ]);
                     }
                 }
 
