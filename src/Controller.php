@@ -20,9 +20,9 @@ class Controller
     public function middleware($req, $res)
     {
         // add routes
-        $this->app->get('/instagram/connect', 'connect')
-                  ->get('/instagram/callback', 'callback')
-                  ->post('/instagram/disconnect', 'disconnect');
+        $this->app->get('/instagram/connect', ['instagram\\Controller', 'connect'])
+                  ->get('/instagram/callback', ['instagram\\Controller', 'callback'])
+                  ->post('/instagram/disconnect', ['instagram\\Controller', 'disconnect']);
 
         $this->app['instagram'] = function ($c) {
             return new Instaphp($c['config']->get('instagram'));
