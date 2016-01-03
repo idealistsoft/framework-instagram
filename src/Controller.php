@@ -2,7 +2,7 @@
 
 namespace app\instagram;
 
-use infuse\View;
+use Infuse\View;
 use Instaphp\Instaphp;
 use app\users\models\User;
 use app\instagram\models\InstagramProfile;
@@ -12,7 +12,7 @@ class Controller
     use \InjectApp;
 
     public static $properties = [
-        'models' => [ 'InstagramProfile' ],
+        'models' => ['InstagramProfile'],
     ];
 
     public static $scaffoldAdmin;

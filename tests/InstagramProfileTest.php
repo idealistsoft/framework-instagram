@@ -1,6 +1,6 @@
 <?php
 
-use infuse\Database;
+use Infuse\Database;
 use app\instagram\models\InstagramProfile;
 
 class InstagramProfileTest extends \PHPUnit_Framework_TestCase
@@ -9,7 +9,7 @@ class InstagramProfileTest extends \PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        Database::delete('InstagramProfiles', [ 'id' => 1 ]);
+        Database::delete('InstagramProfiles', ['id' => 1]);
     }
 
     public static function tearDownAfterClass()
@@ -170,7 +170,7 @@ class InstagramProfileTest extends \PHPUnit_Framework_TestCase
             'follows_count' => 123,
             'media_count' => 150, ];
 
-        $profile = self::$profile->toArray([ 'last_refreshed', 'created_at', 'updated_at' ]);
+        $profile = self::$profile->toArray(['last_refreshed', 'created_at', 'updated_at']);
 
         $this->assertEquals($expected, $profile);
     }
